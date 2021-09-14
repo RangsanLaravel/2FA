@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model FactorUser
+<div class="text-center">
+    @if (Model is not null)
+    {
+        if (Model.AuthenSuccess)
+        {
+            <p class="alert-primary"> Successful  </p>
+        }
+        else if (Model.setupcode is not null)
+        {
+            <form asp-action="Index" asp-controller="Home" asp-antiforgery="true" method="post">
+                <p>@Model.setupcode.Account</p>
+                <p>@Model.setupcode.ManualEntryKey</p>
+                <img src="@Model.setupcode.QrCodeSetupImageUrl" />
+                <input asp-for="@Model.UserInputCode" />
+                <button type="submit"> Confirm</button>
+            </form> }
+        else
+        {
+<p class="alert-danger"> Failed </p>
+        }
+
+
+    }
+</div>
